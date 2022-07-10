@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- pressionado -->
+    <item android:drawable="@drawable/btled2" android:state_pressed="true"/>
+
+    <!-- normal-->
+    <item android:drawable="@drawable/btled"/>
+</selector>

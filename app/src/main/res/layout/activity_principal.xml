@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".principal">
+
+    <Button
+        android:id="@+id/botao1"
+        android:layout_width="wrap_content"
+        android:layout_height="173dp"
+        android:layout_below="@+id/btconfiguracao"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/selector_button"
+        android:gravity="center"
+        android:text="LAMPADA"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/botao2"
+        android:layout_width="188dp"
+        android:layout_height="173dp"
+        android:layout_below="@+id/botao1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="120dp"
+        android:background="@drawable/selector_button"
+        android:text="PORTÃO"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btconfiguracao"
+        android:layout_width="138dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="140dp"
+        android:background="@drawable/botaoazul"
+        android:text="Configurações"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/btfalar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botao2"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="93dp"
+
+        android:gravity="center"
+        android:text="Toque para falar..."
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>
