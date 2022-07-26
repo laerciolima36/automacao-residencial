@@ -1,16 +1,11 @@
 package com.example.automacaoresidencial;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,21 +20,17 @@ import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory;
 import com.intelligt.modbus.jlibmodbus.tcp.TcpParameters;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @SuppressLint("HandlerLeak")
 public class principal extends AppCompatActivity {
 
-    static String IP = "";
-    static String TipoBotaoPortao = "ligadesliga";
-    static int retorno;
-    int pass;
+    private String ipPlaca = "";
+    private String TipoBotaoPortao = "ligadesliga";
+    private int retorno;
+    int senhaPlaca;
     int TempoPulso = 1000;
 
     Button botao1, botao2, btconfiguracao;
@@ -95,14 +86,15 @@ public class principal extends AppCompatActivity {
     @Override
     public void onStart() {
         try{
-            IP = LerArquivo("ip.txt");
+            ipPlaca = LerArquivo("ip.txt");
             TipoBotaoPortao = LerArquivo("tipoBotao.txt");
 
             TempoPulso = Integer.parseInt(LerArquivo("tempo.txt"));
 
-            pass = Integer.parseInt(LerArquivo("senha.txt"));
+            senhaPlaca = Integer.parseInt(LerArquivo("senha.txt"));
 
             getSpeechInput();
+
         }catch (Exception e){
             System.out.println("erro no onstart" + e);
             ChamaConfig();
@@ -130,8 +122,6 @@ public class principal extends AppCompatActivity {
         }
         return text;
     }
-
-
 
     public void carregaViews(){
         botao1 = findViewById(R.id.botao1);
@@ -196,7 +186,7 @@ public class principal extends AppCompatActivity {
                 TcpParameters tcpParameters = new TcpParameters();
 
                 //tcp parameters have already set by default as in example
-                tcpParameters.setHost(InetAddress.getByName(IP));
+                tcpParameters.setHost(InetAddress.getByName(ipPlaca));
                 tcpParameters.setKeepAlive(true);
                 tcpParameters.setPort(Modbus.TCP_PORT);
 
@@ -215,11 +205,11 @@ public class principal extends AppCompatActivity {
                     //ler a senha da placa
                     int[] senha = m.readHoldingRegisters(1, 10, 1);
                     System.out.println("Senha ESP: " + senha[0]);
-                    System.out.println("Senha APP: " + pass);
+                    System.out.println("Senha APP: " + senhaPlaca);
 
                     int[] status;
 
-                    if (TipoBotaoPortao.equals("ligadesliga") && pass == senha[0]) {
+                    if (TipoBotaoPortao.equals("ligadesliga") && senhaPlaca == senha[0]) {
                         status = m.readHoldingRegisters(1, estado, 1);
                         retorno = status[0];
 
@@ -230,7 +220,7 @@ public class principal extends AppCompatActivity {
                             }
                     }
 
-                    if (TipoBotaoPortao.equals("pulso") && pass == senha[0]) {
+                    if (TipoBotaoPortao.equals("pulso") && senhaPlaca == senha[0]) {
                         status = m.readHoldingRegisters(1, estado, 1);
                         retorno = status[0];
 
